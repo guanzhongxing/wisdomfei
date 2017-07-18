@@ -1,0 +1,5 @@
+开始部署admintwo的时候，需要修改代码中的部分。
+1：修改src/jdbc.properties中mysql数据库密码
+2：修改src/struts.xml中一些配置，将开发模式参数修改为生成环境
+3：修改src/com.admintwo.util.EmailUtils.java中激活按钮的超链接
+4：修改src/img.properties下的图片存储路径

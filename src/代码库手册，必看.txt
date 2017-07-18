@@ -1,0 +1,17 @@
+代码库运行步骤：
+步骤一：导入sql文件，将src/admintwo.sql导入mysql数据库中，mysql数据库版本为5.7.17。另外说明一下，jdk版本为1.8。
+步骤二：修改src/jdbc.properties文件中的mysql连接密码。
+步骤三：修改src/img.properties文件中的图片存放路径，注意修改你自己的tomcat安装路径。
+步骤四：集成qq登录，修改src/qqconnectconfig.properties。注意：需要自己申请qq互联，获取app_ID和app_KEY，并且保证回调地址和申请地址一模一样。可根据src/com/qq/connect/demo测试。
+
+常见问题：
+1、No suitable driver
+解决方案：更改mysql连接驱动jar包，适合你自己的mysql版本。
+
+2、本地测试注册邮件接收不到
+解决方案：请不要修改com.admintwo.util.EmailUtils类中的测试账号，里面已经集成了代码库邮箱登录测试账号，修改将导致无法发送邮件。
+
+3、邮箱激活账号无效
+解决方案：注意修改com.admintwo.util.EmailUtils的超链接，超链接导向www.admintwo.com，需要修改你自己的路径。注意不要修改测试账号。
+
+4、有其他问题，可加群反馈：527801280

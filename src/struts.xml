@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 请求参数的编码方式 -->
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+
+	<!-- 设置上传文件最大为30M -->
+	<constant name="struts.multipart.maxSize" value="31457280" />
+
+	<!-- 当struts.xml改动后，是否重新加载。默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.configuration.xml.reload" value="false" />
+
+	<!-- 是否使用struts的开发模式。开发模式会有更多的调试信息。默认值为false(生产环境下使用),开发阶段最好打开 -->
+	<constant name="struts.devMode" value="false" />
+
+	<!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭 -->
+	<constant name="struts.serve.static.browserCache" value="true" />
+
+	<!-- 指定由spring负责action对象的创建 -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- 过滤ws请求 -->
+	<constant name="struts.action.excludePattern" value="/websocket"></constant>
+
+	<!-- 约定*_*为所有的jsp跳转，并不执行任何逻辑 -->
+	<package name="jsp" namespace="/" extends="struts-default">
+		<action name="*_*" class="jsp">
+			<result>/WEB-INF/jsp/{1}/{2}.jsp</result>
+		</action>
+	</package>
+
+	<!-- 用户处理的action -->
+	<package name="user" namespace="/user" extends="struts-default">
+		<!-- 生成验证码 -->
+		<action name="createImage" class="user" method="createImage">
+			<result name="success" type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 判断验证码是否正确 -->
+		<action name="getCheckCode" class="user" method="getCheckCode">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 判断邮箱是否存在 -->
+		<action name="existEmail" class="user" method="existEmail">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 注册用户 -->
+		<action name="register" class="user" method="register">
+			<result name="success" type="redirect">../user_activate?email=${email}&amp;status=0
+			</result>
+			<result name="error" type="redirect">../user_reg</result>
+		</action>
+		<!-- 判断邮箱是否激活、是否封号 -->
+		<action name="isactive" class="user" method="isactive">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 激活邮箱账户 -->
+		<action name="activate" class="user" method="activate">
+			<result name="success" type="redirect">../user_login</result>
+			<result name="error" type="redirect">../user_activate?email=${email}&amp;status=0
+			</result>
+		</action>
+		<!-- 重发邮件激活邮箱账户 -->
+		<action name="reactivate" class="user" method="reactivate">
+			<result name="success" type="redirect">../user_login</result>
+			<result name="error" type="redirect">../user_activate?email=${email}&amp;status=0
+			</result>
+		</action>
+		<!-- 邮箱账户登录成功处理操作 -->
+		<action name="login" class="user" method="login">
+			<result name="userPath" type="redirect">../${path}</result>
+			<result name="success" type="redirect">../public_index</result>
+			<result name="error" type="redirect">../user_login</result>
+		</action>
+		<!-- 判断session（user）是否存在 -->
+		<action name="isUserSession" class="user" method="isUserSession">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 修改用户界面风格 -->
+		<action name="updateStyle" class="user" method="updateStyle">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 用户退出，注销账户 -->
+		<action name="logout" class="user" method="logout">
+			<result name="success" type="redirect">../public_index</result>
+		</action>
+		<!-- 根据id展示用户主页 -->
+		<action name="home" class="user" method="home">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 根据邮箱修改用户主页信息 -->
+		<action name="updateSet" class="user" method="updateSet">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 上传用户头像 -->
+		<action name="uploadImg" class="user" method="uploadImg">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 修改用户头像 -->
+		<action name="updateImg" class="user" method="updateImg">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 判断密码是否正确 -->
+		<action name="checkPassword" class="user" method="checkPassword">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 修改用户密码 -->
+		<action name="updatePassword" class="user" method="updatePassword">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 修改用户密码 -->
+		<action name="rePassword" class="user" method="rePassword">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 邮件修改用户密码 -->
+		<action name="emailUpdatePassword" class="user" method="emailUpdatePassword">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 判断赞助是否足够 -->
+		<action name="checkMoney" class="user" method="checkMoney">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 赞助兑换积分 -->
+		<action name="moneyToJifen" class="user" method="moneyToJifen">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 根据email获取user信息 -->
+		<action name="getUserByEmail" class="user" method="getUserByEmail">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 用户评论代码 -->
+		<action name="addcomments" class="user" method="addcomments">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 用户已读消息 -->
+		<action name="readMessage" class="user" method="readMessage">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 所有已读消息 -->
+		<action name="readAllMessage" class="user" method="readAllMessage">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 用户分享榜 -->
+		<action name="top" class="user" method="top">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 资源最热榜 -->
+		<action name="resourcestop" class="user" method="resourcestop">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取用户称号 -->
+		<action name="getlabel" class="user" method="getlabel">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 升级用户称号 -->
+		<action name="updateLabel" class="user" method="updateLabel">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取用户最新消息 -->
+		<action name="getNewMessage" class="user" method="getNewMessage">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 上传用户支付宝二维码 -->
+		<action name="zhifubao" class="user" method="zhifubao">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 上传用户微信二维码 -->
+		<action name="weixin" class="user" method="weixin">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取用户二维码信息 -->
+		<action name="getUserPay" class="user" method="getUserPay">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 根据资源id获取用户二维码信息 -->
+		<action name="getUserPayByResources_id" class="user"
+			method="getUserPayByResources_id">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 资源处理的action -->
+	<package name="resource" namespace="/resource" extends="struts-default">
+		<!-- 上传资源图片 -->
+		<action name="uploadImg" class="resource" method="uploadImg">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 上传资源压缩包 -->
+		<action name="uploadFile" class="resource" method="uploadFile">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 分享代码 -->
+		<action name="add" class="resource" method="add">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 根据资源id展示信息 -->
+		<action name="detail" class="resource" method="detail">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 资源收藏 -->
+		<action name="shoucang" class="resource" method="shoucang">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 取消收藏 -->
+		<action name="deleteshoucang" class="resource" method="deleteshoucang">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 资源积分和当前用户积分比较 -->
+		<action name="jifen" class="resource" method="jifen">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 下载资源 -->
+		<action name="download" class="resource" method="download">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 首页所有资源 -->
+		<action name="index" class="resource" method="index">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 所有资源分页 -->
+		<action name="list" class="resource" method="list">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 某个用户分享的资源，前25条 -->
+		<action name="getResourcesInfoByUser_id" class="resource"
+			method="getResourcesInfoByUser_id">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 某个用户分享的资源，所有条 -->
+		<action name="getUser_indexResourcesInfoByUser_id" class="resource"
+			method="getUser_indexResourcesInfoByUser_id">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 某个用户评论、下载、收藏的资源 -->
+		<action name="getResourcesSortInfoByUser_id" class="resource"
+			method="getResourcesSortInfoByUser_id">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 资源的总个数 -->
+		<action name="getAllResourcesNum" class="resource" method="getAllResourcesNum">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 获取公告、原创、精集合 -->
+		<action name="getFirstResourcesList" class="resource"
+			method="getFirstResourcesList">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 资源搜索 -->
+		<action name="search" class="resource" method="search">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 消息处理Messages -->
+	<package name="messages" namespace="/messages" extends="struts-default">
+		<!-- 获取用户所有消息 -->
+		<action name="getMessageByEmail" class="messages" method="getMessageByEmail">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 评论处理Comments -->
+	<package name="comments" namespace="/comments" extends="struts-default">
+		<!-- 根据资源id获取所有评论 -->
+		<action name="getCommentsByResources_id" class="comments"
+			method="getCommentsByResources_id">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取用户前10条评论 -->
+		<action name="getTenCommentsByUser_id" class="comments"
+			method="getTenCommentsByUser_id">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 知识库处理Ztree -->
+	<package name="ztree" namespace="/ztree" extends="struts-default">
+		<!-- 获取左侧根节点树 -->
+		<action name="getZtree" class="ztree" method="getZtree">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取简单节点树 -->
+		<action name="getSimpleZtree" class="ztree" method="getSimpleZtree">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取数量 -->
+		<action name="getNumber" class="ztree" method="getNumber">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取待审核数量 -->
+		<action name="getWaitNum" class="ztree" method="getWaitNum">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 插入一条数据 -->
+		<action name="insertTree" class="ztree" method="insertTree">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 获取待审核知识 -->
+		<action name="getWaitTrees" class="ztree" method="getWaitTrees">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 审核知识 -->
+		<action name="shenheTree" class="ztree" method="shenheTree">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 分页获取知识 -->
+		<action name="getTreesByFenye" class="ztree" method="getTreesByFenye">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 增加收藏数 -->
+		<action name="addNumById" class="ztree" method="addNumById">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 查询今日公告 -->
+		<action name="getToday" class="ztree" method="getToday">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- 查询用户收藏的知识 -->
+		<action name="getKeepTreeByUser_id" class="ztree"
+			method="getKeepTreeByUser_id">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- QQ处理 -->
+	<package name="qq" namespace="/qq" extends="struts-default">
+		<!-- qq登录 -->
+		<action name="login" class="qq" method="login">
+			<result name="success" type="stream">
+				<param name="contentType">text/html</param>
+			</result>
+		</action>
+		<!-- qq登录获取code -->
+		<action name="getQQCode" class="qq" method="getQQCode">
+			<result name="userPath" type="redirect">../${path}</result>
+			<result name="success" type="redirect">../public_index</result>
+			<result name="error" type="redirect">../user_login</result>
+		</action>
+	</package>
+</struts>
