@@ -32,8 +32,12 @@
 6. [代码库3.1版本功能改进说明](https://www.admintwo.com/resource_detail?id=121)
 7. [代码库3.2版本功能介绍，网站源码将在3.5版本中发布](https://www.admintwo.com/resource_detail?id=133)
 8. [代码库3.3版本，赞助和打赏功能来袭（个人中心上传自己支付宝和微信收款二维码）](https://www.admintwo.com/resource_detail?id=139)
-
-说明：本来打算到3.5版本再上传到git的，结果发现最近经常弄得太晚，身体有点小累，有点扛不住了，真的需要休息一段时间，所以就决定3.3版本先分享出来吧。
+9. [代码库3.4版本详情，网站开启图片懒加载](https://www.admintwo.com/resource_detail?id=155)
+10. [代码库3.5版本，集成QQ登录+sql语句优化](https://www.admintwo.com/resource_detail?id=161)
+11. [代码库3.6版本，增加最新新人榜、称号排行榜、赞助排行榜、积分排行榜，效果见首页](https://www.admintwo.com/resource_detail?id=162)
+12. [代码库3.7版本详情](https://www.admintwo.com/resource_detail?id=165)
+13. [代码库3.8版本，挣积分的几种方式](https://www.admintwo.com/resource_detail?id=166)
+14. [代码库3.9版本，新增QQ联系作者功能（评论此公告，系统自动+1积分）](https://www.admintwo.com/resource_detail?id=184)
 
  **交流群：527801280** 
 
