@@ -9,6 +9,8 @@
 - 数据库：mysql
 - 服务器：nginx+tomcat
 
+ **交流群：527801280** 
+
  **项目运行方式** ：
 1. 从git上获取代码或者直接下载压缩包
 2. 项目包含两个文件夹：src和webapps，相信都明白怎么弄了吧。新建web项目，直接将src和webapps替换即可
@@ -38,8 +40,6 @@
 12. [代码库3.7版本详情](https://www.admintwo.com/resource_detail?id=165)
 13. [代码库3.8版本，挣积分的几种方式](https://www.admintwo.com/resource_detail?id=166)
 14. [代码库3.9版本，新增QQ联系作者功能（评论此公告，系统自动+1积分）](https://www.admintwo.com/resource_detail?id=184)
-
- **交流群：527801280** 
 
  **网站截图** ：
 1. 首页-源码库截图
